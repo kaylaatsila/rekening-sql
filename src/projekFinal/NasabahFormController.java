@@ -85,6 +85,9 @@ public class NasabahFormController implements Initializable {
 
     @FXML
     private TextField tfSaldoRekeningBaru;
+    
+    @FXML
+    private TextField tfJumlah;
 
     @FXML
     private Button btnTambahRekening;
@@ -156,6 +159,9 @@ public class NasabahFormController implements Initializable {
 
     @FXML
     private TextField tfSaldoRekeningBaruP;
+
+    @FXML
+    private TextField tfJumlahP;
 
     @FXML
     private Button btnTambahRekeningP;
@@ -234,7 +240,34 @@ public class NasabahFormController implements Initializable {
         btnTambahRekening.setDisable(true);
     }
   
-  
+    @FXML
+    void handleDepositButton(ActionEvent event) {
+        Rekening rek = tblRekening.getSelectionModel().getSelectedItem();
+         try {
+             ndm.tambahSaldo(rek, Double.parseDouble(tfJumlah.getText()));
+             btnReload.fire();
+             viewDataRekening(Integer.parseInt(tfIdNasabahBaru.getText()));
+             tfJumlah.setText("");
+         } catch (SQLException ex) {
+             Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    @FXML
+    void handleWithdrawButton(ActionEvent event) {
+        Rekening rek = tblRekening.getSelectionModel().getSelectedItem();
+        
+        if (rek.getSaldo() >= Double.parseDouble(tfJumlah.getText())){
+            try {
+                ndm.tarikSaldo(rek, Double.parseDouble(tfJumlah.getText()));
+                btnReload.fire();
+                viewDataRekening(Integer.parseInt(tfIdNasabahBaru.getText()));
+                tfJumlah.setText("");
+            } catch (SQLException ex) {
+                Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     //perusahaan
     @FXML
     void handleAddCorpAccountButton(ActionEvent event) {
@@ -296,7 +329,36 @@ public class NasabahFormController implements Initializable {
         tblNasabahP.setItems(null);
         tblNasabahP.setItems(data);
         btnTambahRekeningP.setDisable(true);
-    }    
+    }
+
+    @FXML
+    void handleDepositButtonP(ActionEvent event) {
+        Rekening rek = tblRekeningP.getSelectionModel().getSelectedItem();
+         try {
+             ndm.tambahSaldo(rek, Double.parseDouble(tfJumlahP.getText()));
+             btnReloadP.fire();
+             viewDataRekeningP(Integer.parseInt(tfIdNasabahBaruP.getText()));
+             tfJumlahP.setText("");
+         } catch (SQLException ex) {
+             Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+
+    @FXML
+    void handleWithdrawButtonP(ActionEvent event) {
+        Rekening rek = tblRekeningP.getSelectionModel().getSelectedItem();
+        
+        if (rek.getSaldo() >= Double.parseDouble(tfJumlahP.getText())){
+            try {
+                ndm.tarikSaldo(rek, Double.parseDouble(tfJumlahP.getText()));
+                btnReloadP.fire();
+                viewDataRekeningP(Integer.parseInt(tfIdNasabahBaruP.getText()));
+                tfJumlahP.setText("");
+            } catch (SQLException ex) {
+                Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
