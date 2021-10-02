@@ -8,3 +8,6 @@ public Rekening(int noRekening, double saldo) {
  public int getNoRekening() {
         return noRekening.get();
     }
+public void setNoRekening(int noRekening) {
+        this.noRekening.set(noRekening);
+    }
