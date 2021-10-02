@@ -63,10 +63,10 @@ public class NasabahDataModel {
         stmtNasabah.setString(3, n.getAlamat());
         stmtNasabah.execute();
         
-        PreparedStatement stmtIndividual = conn.prepareStatement(insertPerusahaan);
-        stmtIndividual.setInt(1, n.getIdNasabah());
-        stmtIndividual.setString(2, n.getNib());
-        stmtIndividual.execute();
+        PreparedStatement stmtPerusahaan = conn.prepareStatement(insertPerusahaan);
+        stmtPerusahaan.setInt(1, n.getIdNasabah());
+        stmtPerusahaan.setString(2, n.getNib());
+        stmtPerusahaan.execute();
         
         PreparedStatement stmtRekening = conn.prepareStatement(insertRekening);
         stmtRekening.setInt(1, n.getRekening().get(0).getNoRekening());
@@ -84,7 +84,7 @@ public class NasabahDataModel {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             while (rs.next()){
                 String sqlRekening = "SELECT noRekening, saldo "
-                    + "FROM Rekening WHERE idNasabah="+rs.getInt(1);
+                    + "FROM Rekening WHERE idNasabah=" + rs.getInt(1);
                 ResultSet rsRekening = conn.createStatement().executeQuery(sqlRekening);
                 ArrayList<Rekening> dataRekening = new ArrayList<>();
                 while (rsRekening.next()){
@@ -97,6 +97,7 @@ public class NasabahDataModel {
         }     
         return data;
     }
+
     public ObservableList<Perusahaan> getPerusahaan(){
         ObservableList<Perusahaan> data = FXCollections.observableArrayList();
         String sql="SELECT `idNasabah`, `nama`,`alamat`, `nib` "
@@ -106,7 +107,7 @@ public class NasabahDataModel {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             while (rs.next()){
                 String sqlRekening = "SELECT noRekening, saldo "
-                    + "FROM Rekening WHERE idNasabah="+rs.getInt(1);
+                    + "FROM Rekening WHERE idNasabah=" + rs.getInt(1);
                 ResultSet rsRekening = conn.createStatement().executeQuery(sqlRekening);
                 ArrayList<Rekening> dataRekening = new ArrayList<>();
                 while (rsRekening.next()){
@@ -125,7 +126,7 @@ public class NasabahDataModel {
         ObservableList<Rekening> data = FXCollections.observableArrayList();
         String sql="SELECT `noRekening`, `saldo` "
                 + "FROM `Rekening` "
-                + "WHERE idNasabah="+idNasabah;
+                + "WHERE idNasabah=" + idNasabah;
         try {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             while (rs.next()){
@@ -142,7 +143,7 @@ public class NasabahDataModel {
         String sql="SELECT MAX(idNasabah) from Nasabah";
         ResultSet rs = conn.createStatement().executeQuery(sql);
         while (rs.next()){
-                return rs.getInt(1)==0?1000001:rs.getInt(1)+1;
+                return rs.getInt(1)==0?1000001:rs.getInt(1) + 1;
             }
         return 1000001;
     }
@@ -151,7 +152,7 @@ public class NasabahDataModel {
         String sql="SELECT MAX(noRekening) FROM Rekening WHERE idNasabah=" + idNasabah;
         ResultSet rs = conn.createStatement().executeQuery(sql);
         while (rs.next()){
-                return rs.getInt(1)+1;
+                return rs.getInt(1) + 1;
             }
         return 0;
     }
