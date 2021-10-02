@@ -22,3 +22,6 @@ public void tambahSaldo(double jumlah){
     }
 public void tarikTunai(double jumlah){
  if((this.saldo.get() - jumlah) >= 0){
+this.saldo.set(this.saldo.get() - jumlah);
+        }
+    }
