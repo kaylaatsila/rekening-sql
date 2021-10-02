@@ -17,15 +17,29 @@ public class DBHelper {
 
     public static Connection getConnection(String driver) throws SQLException {
         Connection conn = null;
+        switch (driver){
+            case("SQLITE"):{
         try {
             Class.forName("org.sqlite.JDBC");
             System.out.println("Library ada");
             conn = DriverManager.getConnection(SQCONN);
-            createTable(conn, driver);
         } catch (ClassNotFoundException ex) {
             System.out.println("Library tidak ada");
             Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }break;
+            }
+
+            case("MYSQL"):{
+         try {
+             Class.forName("com.mysql.jdbc.Driver");
+             System.out.println("Library ada");
+             conn=DriverManager.getConnection(MYCONN,USERNAME,PASSWORD);
+         } catch (ClassNotFoundException ex) {
+             System.out.println("library tidak ada");
+             Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE,null, ex);
+         }break;
+            }
+            }
         return conn;
     }
     
