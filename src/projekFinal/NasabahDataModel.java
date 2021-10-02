@@ -11,10 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import projekFinal.db.DBHelper;
 
-/**
- *
- * @author USER
- */
 public class NasabahDataModel {
     public final Connection conn;
 
@@ -79,16 +75,17 @@ public class NasabahDataModel {
         ObservableList<Individu> data = FXCollections.observableArrayList();
         String sql="SELECT `idNasabah`, `nama`,`alamat`, `nik`, `npwp` "
                 + "FROM `Nasabah` NATURAL JOIN `Individu` "
-                + "ORDER BY name";
+                + "ORDER BY nama";
         try {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             while (rs.next()){
                 String sqlRekening = "SELECT noRekening, saldo "
-                    + "FROM Rekening WHERE idNasabah=" + rs.getInt(1);
+                    + "FROM `Rekening` WHERE idNasabah="+rs.getInt(1);
                 ResultSet rsRekening = conn.createStatement().executeQuery(sqlRekening);
+                
                 ArrayList<Rekening> dataRekening = new ArrayList<>();
                 while (rsRekening.next()){
-                    dataRekening.add(new Rekening(rsRekening.getInt(1),rsRekening.getDouble(2)));
+                    dataRekening.add(new Rekening(rsRekening.getInt(1), rsRekening.getDouble(2)));
                 }
                 data.add(new Individu(rs.getInt(1),rs.getString(2),rs.getString(3), dataRekening, rs.getLong(4),rs.getLong(5)));
             }
@@ -97,23 +94,24 @@ public class NasabahDataModel {
         }     
         return data;
     }
-
+    
     public ObservableList<Perusahaan> getPerusahaan(){
         ObservableList<Perusahaan> data = FXCollections.observableArrayList();
-        String sql="SELECT `idNasabah`, `nama`,`alamat`, `nib` "
+        String sql="SELECT `idNasabah`, `nama`, `alamat`, `nib` "
                 + "FROM `Nasabah` NATURAL JOIN `Perusahaan` "
-                + "ORDER BY name";
+                + "ORDER BY nama";
         try {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             while (rs.next()){
                 String sqlRekening = "SELECT noRekening, saldo "
-                    + "FROM Rekening WHERE idNasabah=" + rs.getInt(1);
+                    + "FROM `Rekening` WHERE idNasabah=" + rs.getInt(1);
                 ResultSet rsRekening = conn.createStatement().executeQuery(sqlRekening);
+                
                 ArrayList<Rekening> dataRekening = new ArrayList<>();
                 while (rsRekening.next()){
                     dataRekening.add(new Rekening(rsRekening.getInt(1),rsRekening.getDouble(2)));
                 }
-                data.add(new Perusahaan(rs.getInt(1),rs.getString(2),rs.getString(3),dataRekening, rs.getString(4)));
+                data.add(new Perusahaan(rs.getInt(1), rs.getString(2), rs.getString(3), dataRekening, rs.getString(4)));
             }
             
         } catch (SQLException ex) {
@@ -130,12 +128,11 @@ public class NasabahDataModel {
         try {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             while (rs.next()){
-                data.add(new Rekening(rs.getInt(1),rs.getDouble(2)));
+                data.add(new Rekening(rs.getInt(1), rs.getDouble(2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NasabahDataModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return data;
     }
     
