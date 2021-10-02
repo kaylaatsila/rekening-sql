@@ -17,3 +17,6 @@ public void setNoRekening(int noRekening) {
 public void setSaldo(double saldo) {
         this.saldo.set(saldo);
     }
+public void tambahSaldo(double jumlah){
+        this.saldo.set(this.saldo.get() + jumlah);
+    }
