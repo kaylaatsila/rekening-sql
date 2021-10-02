@@ -25,3 +25,6 @@ public void tarikTunai(double jumlah){
 this.saldo.set(this.saldo.get() - jumlah);
         }
     }
+public IntegerProperty noRekeningProperty() {
+        return noRekening;
+    }
