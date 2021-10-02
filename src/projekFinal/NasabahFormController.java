@@ -243,7 +243,7 @@ public class NasabahFormController implements Initializable {
                             Double.parseDouble(tfSaldoRekeningBaruP.getText()));
             
             ndm.tambahRekening(Integer.parseInt(tfIdNasabahBaruP.getText()), rek);          
-            viewDataRekening(Integer.parseInt(tfIdNasabahBaruP.getText()));
+            viewDataRekeningP(Integer.parseInt(tfIdNasabahBaruP.getText()));
             btnReloadP.fire();
             tfSaldoRekeningBaruP.setText("");
             
@@ -318,9 +318,9 @@ public class NasabahFormController implements Initializable {
                 viewDataRekening(i.getIdNasabah());
                 
                 btnTambahRekening.setDisable(false);
-                tfIdNasabahBaru.setText(""+i.getIdNasabah());
+                tfIdNasabahBaru.setText("" + i.getIdNasabah());
                 try {
-                    tfNoRekeningBaru.setText(""+ndm.nextNoRekening(i.getIdNasabah()));
+                    tfNoRekeningBaru.setText("" + ndm.nextNoRekening(i.getIdNasabah()));
                 } catch (SQLException ex) {
                     Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -336,7 +336,7 @@ public class NasabahFormController implements Initializable {
                 btnTambahRekeningP.setDisable(false);
                 tfIdNasabahBaruP.setText("" + p.getIdNasabah());
                 try {
-                    tfNoRekeningBaruP.setText(""+ndm.nextNoRekening(p.getIdNasabah()));
+                    tfNoRekeningBaruP.setText("" + ndm.nextNoRekening(p.getIdNasabah()));
                 } catch (SQLException ex) {
                     Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
                 }
