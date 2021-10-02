@@ -28,3 +28,7 @@ this.saldo.set(this.saldo.get() - jumlah);
 public IntegerProperty noRekeningProperty() {
         return noRekening;
     }
+public DoubleProperty saldoProperty() {
+        return saldo;
+    }
+}
