@@ -1,3 +1,9 @@
+package projekFinal;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 class Rekening{
     private IntegerProperty noRekening;
     private DoubleProperty saldo;
