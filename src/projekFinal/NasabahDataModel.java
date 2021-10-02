@@ -80,7 +80,7 @@ public class NasabahDataModel {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             while (rs.next()){
                 String sqlRekening = "SELECT noRekening, saldo "
-                    + "FROM `Rekening` WHERE idNasabah="+rs.getInt(1);
+                    + "FROM `Rekening` WHERE idNasabah=" + rs.getInt(1);
                 ResultSet rsRekening = conn.createStatement().executeQuery(sqlRekening);
                 
                 ArrayList<Rekening> dataRekening = new ArrayList<>();
@@ -162,6 +162,28 @@ public class NasabahDataModel {
         stmtNasabah.setInt(1, idNasabah);
         stmtNasabah.setInt(2, rek.getNoRekening());
         stmtNasabah.setDouble(3, rek.getSaldo());
+        stmtNasabah.execute();
+    }
+    
+    public void tambahSaldo(Rekening rek, double jumlah) throws SQLException{
+        String insertNasabah = "UPDATE Rekening "
+                + "SET saldo = ? "
+                + "WHERE noRekening = ?";
+        
+        PreparedStatement stmtNasabah = conn.prepareStatement(insertNasabah);
+        stmtNasabah.setDouble(1, (rek.getSaldo() + jumlah));
+        stmtNasabah.setInt(2, rek.getNoRekening());
+        stmtNasabah.execute();
+    }
+    
+    public void tarikSaldo(Rekening rek, double jumlah) throws SQLException{
+        String insertNasabah = "UPDATE Rekening "
+                + "SET saldo = ? "
+                + "WHERE noRekening = ?";
+        
+        PreparedStatement stmtNasabah = conn.prepareStatement(insertNasabah);
+        stmtNasabah.setDouble(1, (rek.getSaldo() - jumlah));
+        stmtNasabah.setInt(2, rek.getNoRekening());
         stmtNasabah.execute();
     }
 }
