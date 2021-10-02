@@ -20,3 +20,4 @@ public void setSaldo(double saldo) {
 public void tambahSaldo(double jumlah){
         this.saldo.set(this.saldo.get() + jumlah);
     }
+public void tarikTunai(double jumlah){
