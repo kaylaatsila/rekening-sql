@@ -14,3 +14,6 @@ public void setNoRekening(int noRekening) {
  public double getSaldo() {
         return saldo.get();
     }
+public void setSaldo(double saldo) {
+        this.saldo.set(saldo);
+    }
