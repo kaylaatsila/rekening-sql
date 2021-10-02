@@ -13,6 +13,8 @@ public class DBHelper {
 
     private static final String USER = "root";
     private static final String PASSWORD = "";
+    public static final String DB = "nasabahbase";
+    public static final String MYCONN = "jdbc:mysql://localhost/" + DB;
     private static final String SQCONN = "jdbc:sqlite:E:\\Database\\SQLite\\KMMI\\dbkoperasi.sqlite3";
 
     public static Connection getConnection(String driver) throws SQLException {
